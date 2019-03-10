@@ -5,7 +5,7 @@ from __future__ import print_function
 from argparse import ArgumentParser
 
 from data.io import load_img
-from data.vizualize import show_results
+from data.vizualize import show_best, show_content_style
 from data.processing import processVGG19, deprocessVGG19
 
 from model.vgg_style import run_style_transfer
@@ -25,16 +25,22 @@ def main():
 
     # load and preprocess images
     style = load_img(args.style)
-    style_k = processVGG19(style)
     content = load_img(args.content)
+    style_k = processVGG19(style)
     content_k = processVGG19(content)
 
     # Run model
-    best, best_loss = run_style_transfer(content_k, style_k)
+    best, best_loss = run_style_transfer(
+        content_k, style_k,
+        num_iterations=1000
+    )
 
     # show image
+    print("Loss: {}".format(best_loss))
     best = deprocessVGG19(best)
-    show_results(best, content.astype('uint8'), style.astype('uint8'))
+
+    show_content_style(style, content)
+    show_best(best)
 
 
 if __name__ == "__main__":

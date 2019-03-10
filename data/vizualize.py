@@ -28,7 +28,7 @@ def show_content_style(content, style):
     :type style: ndarray
     """
 
-    plt.figure(figsize(10, 10))
+    plt.figure(figsize=(10, 10))
 
     plt.subplot(1, 2, 1)
     imshow(content, "Content Image")
@@ -36,6 +36,12 @@ def show_content_style(content, style):
     plt.subplot(1, 2, 2)
     imshow(style, "Style Image")
 
+    plt.show()
+
+def show_best(best_img):
+    plt.figure(figsize=(10, 10))
+    plt.imshow(best_img)
+    plt.title('Output Image')
     plt.show()
 
 
